@@ -43,32 +43,16 @@ public class DbServer {
 
                 String inputLine;
                 while ((inputLine = in.readLine()) != null) {
-//                    request = request.split(" ").map{|item| item.strip }
-//                    command = request[0]
-//                    key = request[1]
-//
-//                    if command == "set"
-//                    value = request[2]
-//
-//                    data[key] = value
-//
-//                    socket.puts(value)
-//                    elsif command == "get"
-//                    value = data[key]
-//
-//                    socket.puts(value)
-//                    else
-//                    socket.puts("error: #{command} is not a valid command")
-//                    end
                     String[] tokens = inputLine.split(" ");
                     String command = tokens[0].trim();
                     String key = tokens[1].trim();
                     String value;
 
                     switch (command) {
-                        case "set":
+                        case "put":
                             value = tokens[2].trim();
                             data.put(key, value);
+                            out.println(key + ": " + value);
                             break;
                         case "get":
                             value = data.get(key);
@@ -77,9 +61,6 @@ public class DbServer {
                         default:
                             out.println("error: #{command} is not a valid command");
                     }
-
-
-
                 }
 
                 in.close();
